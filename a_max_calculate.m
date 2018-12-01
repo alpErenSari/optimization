@@ -56,7 +56,7 @@ function [a_max, result] = a_max_calculate(f, d, x)
                 state = 1;
             end
         end
-        display("while state number " + num2str(state) + " c is " + num2str(a_max));
+%        display("while state number " + num2str(state) + " c is " + num2str(a_max));
     end
 end
             

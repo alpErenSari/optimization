@@ -1,0 +1,33 @@
+function [res, iteration] = fibonacci_search(f, a, b, fibo, tol)
+    alpha = 2/(sqrt(5) + 1);
+    n = size(fibo);
+
+    lambda = a + fibonacci(n-2)/fibonacci(n)*(b - a);
+    mu = a + fibonacci(n-1)/fibonacci(n)*(b - a);
+
+    iteration = 0;
+    while(abs(lambda - mu) > tol) && (iteration < n-1)
+        if(f(lambda) < f(mu))
+            b = mu;
+        else
+            a = lambda;
+        end
+
+        lambda = a + fibonacci(n-2-iteration)/...
+            fibonacci(n-iteration)*(b - a);
+        mu = a + fibonacci(n-1-iteration)/...
+            fibonacci(n-iteration)*(b - a);
+
+        if(iteration == n-2)
+            mu = mu + tol;
+        end
+            
+        iteration = iteration + 1;
+
+    end
+
+    res = (a + b) / 2;
+
+end
+
+    
