@@ -11,7 +11,7 @@ x = [1 , 2];
 % rosenbrock_grad(x);
 % hessian_rosen(x);
 % linsolve(hessian_rosen(x), -rosenbrock_grad(x))
-x0 = [10; 17];
+x0 = [-7; 11];
 [sol, it, res] = newton(rosenbrock, rosenbrock_grad, hessian_rosen, x0, 1000, 1e-4)
 % rosenbrock(sol)
 % f_a = @(a)  rosenbrock(x0 - a*rosenbrock_grad(x0))
