@@ -1,0 +1,18 @@
+function [sol, i, res] = newton(f, g, H, x0, iterations, error)
+    res = 0;
+    x = x0;
+    x_old = x;
+    
+    for i = 1:iterations
+        delta_x = linsolve(H(x), -g(x));
+        alpha = 1;
+        x = x + alpha*delta_x;
+        if(norm(x - x_old) < error)
+            res = 1;
+            break;
+        end
+        x_old = x;
+    end
+    sol = x;
+    i = i+1;
+end
