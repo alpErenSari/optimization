@@ -21,8 +21,7 @@ function [sol, i, res] = parallel_tangents(f, g, x0, iterations, error)
         [alpha, it] = fibonacci_search(f_a, 0, alpha_max, fibo, 1e-4);
 %         alpha = rand();
 %        display(alpha);
-         x_old_2 = x_old;
-         x_old = x;
+            
          x = x + alpha*S;
        
         if(norm(x - x_old) < error)
