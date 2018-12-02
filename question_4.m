@@ -16,7 +16,7 @@ toc
 tic 
 x0 = [-2; 2];
 iterations = 100;
-[sol, i, res] = parallel_tangents(f, f_grad, x0, iterations, error)
+[sol, i, res] = parallel_tangents_new(f, f_grad, x0, iterations, error)
 toc
 %% part c of the question 4
 x0 = [-2; 2];

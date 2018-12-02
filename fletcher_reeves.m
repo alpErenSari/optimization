@@ -10,7 +10,7 @@ x= x+ alpha*d0;
 c1 = f_grad(x); 
 i=0;
 
-      while(i<=i_max)
+      for i = 0:i_max
           beta = (norm(c1)/norm(c0))^2;         
           d1= -c1+beta*d0;
           alpha_max=a_max_calculate(f, d1, x);
@@ -22,7 +22,6 @@ i=0;
           d0=d1;
           c0=c1;
           c1= f_grad(x);
-          i=i+1;
 
       end
       x_sol = x;
