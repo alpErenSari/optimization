@@ -5,7 +5,7 @@ lambda = a + (1 - alpha)*(b - a);
 mu = a + alpha*(b - a);
 
 iteration = 0;
-while(abs(lambda - mu) > tol)
+while(abs(b - a) > tol)
     if(f(lambda) < f(mu))
         b = mu;
     else

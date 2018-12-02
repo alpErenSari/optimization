@@ -6,7 +6,7 @@ function [res, iteration] = fibonacci_search(f, a, b, fibo, tol)
     mu = a + fibo(n-1)/fibo(n)*(b - a);
 
     iteration = 0;
-    while(abs(lambda - mu) > tol) && (iteration < n-2)
+    while(abs(b - a) > tol) && (iteration < n-2)
         if(f(lambda) < f(mu))
             b = mu;
         else

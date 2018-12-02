@@ -11,7 +11,7 @@ x = [1 , 2];
 % rosenbrock_grad(x);
 % hessian_rosen(x);
 % linsolve(hessian_rosen(x), -rosenbrock_grad(x))
-x0 = [-7; 11];
+x0 = [17; 25];
 tic
 [sol, it, res] = newton(rosenbrock, rosenbrock_grad, hessian_rosen, x0, 1000, 1e-2)
 toc
@@ -20,10 +20,10 @@ toc
 % [res, it] = golden_section(f_a, 0, 1e-8, 1e-8)
 % g0 = rosenbrock_grad(x0);
 % f_0 = rosenbrock(x0);
-tic
-sol = fminunc(rosenbrock, x0);
-toc
-fibo = fibonacci([1:50]);
-tic 
-[sol, it] = fibonacci_search(f, -1, 10, fibo, 1e-4)
-toc
+% tic
+% sol = fminunc(rosenbrock, x0);
+% toc
+% fibo = fibonacci([1:50]);
+% tic 
+% [sol, it] = fibonacci_search(f, -1, 10, fibo, 1e-4)
+% toc

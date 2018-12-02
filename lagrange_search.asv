@@ -19,12 +19,6 @@ function alpha = lagrange_search(f_a, low, max)
     if (res >= low) && (res <= max)
         alpha = res;
     else
-        if(f1 > f2)
-            alpha = a(1);
-        else
-            alpha = a(2);
-        end
-    end
-    
+        a
     
     
