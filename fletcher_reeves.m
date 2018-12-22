@@ -1,6 +1,7 @@
 function [x_sol, i] = fletcher_reeves (f,f_grad,x0,i_max)
 
 x=x0;
+epsilon = 1e-4;
 c0 = f_grad(x); % evaluate gradient at initial point 
 d0= -c0; % search direction 
 alpha_max=a_max_calculate(f, d0, x);
@@ -22,6 +23,9 @@ i=0;
           d0=d1;
           c0=c1;
           c1= f_grad(x);
+          if(norm(c1) < epsilon)
+              break;
+          end
 
       end
       x_sol = x;
