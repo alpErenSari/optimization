@@ -1,2 +1,2 @@
 # optimization
-this ee553 courses MATLAB implementations 
+these are ee553 courses MATLAB implementations 
