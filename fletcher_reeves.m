@@ -7,6 +7,7 @@ d0= -c0; % search direction
 alpha_max=a_max_calculate(f, d0, x);
 f_a = @(a) f(x + a.*d0);
 alpha = lagrange_search(f_a, 0, alpha_max); %line search (step size)
+% [alpha, it] = golden_section(f_a, 0, alpha_max, 1e-4);
 x= x+ alpha*d0;
 c1 = f_grad(x); 
 i=0;

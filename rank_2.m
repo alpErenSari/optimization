@@ -1,7 +1,7 @@
-function [sol, i] = rank_2(f, g, x0, iterations, error)
+function [sol, i] = rank_2(f, g, x0, H0, iterations, error)
     res = 0;
     x = x0;
-    H0 = eye(length(x));
+%     H0 = eye(length(x));
     x_old = x;
     fibo = fibonacci(50);
     H = H0;
@@ -24,7 +24,7 @@ function [sol, i] = rank_2(f, g, x0, iterations, error)
         H = H + p_k*p_k'/(p_k'*q_k) - (H*q_k)*(H*q_k)'/(q_k'*H*q_k);
         if(norm(x - x_old) < error)
             res = 1;
-            %break;
+            break;
         end
         x_old = x;
     end

@@ -24,7 +24,7 @@ function [sol, i] = rank_1(f, g, x0, iterations, error)
         H = H + (p_k - H*q_k)*(p_k - H*q_k)'/(q_k'*(p_k - H*q_k));
         if(norm(x - x_old) < error)
             res = 1;
-            %break;
+            break;
         end
         x_old = x;
     end

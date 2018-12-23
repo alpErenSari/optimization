@@ -51,15 +51,15 @@ constraints = {h, h_grad, g, g_grad};
 [x_sol, i] = barrier(f, f_grad, constraints, M, x0, i_max)
 
 %% rank 1 test
-x0 = [-2; -2]; i_max = 1000; M = 1; error = 1e-4;
+x0 = [2; -3]; i_max = 1000; M = 1; error = 1e-6;
 f=@(x) ( x(1) + 1 )^2 + ( x(2) + 3 )^2 + 4;
 f_grad=@(x)[ 2*( x(1) + 1 ) ; 2*( x(2) + 3 )];
 
-[sol, i] = rank_1(f, f_grad, x0, i_max, error)
+[sol, i] = rank_1(rosenbrock, rosenbrock_grad, x0, i_max, error)
 
 %% rank 2 test
-x0 = [-2; -2]; i_max = 1000; M = 1; error = 1e-4;
+x0 = [4; 3]; i_max = 1000; M = 1; error = 1e-6;
 f=@(x) ( x(1) - 5 )^2 + ( x(2) + 3 )^2 + 4;
 f_grad=@(x)[ 2*( x(1) - 5 ) ; 2*( x(2) + 3 )];
 
-[sol, i] = rank_2(f, f_grad, x0, i_max, error)
+[sol, i] = rank_2(rosenbrock, rosenbrock_grad, x0, i_max, error)
