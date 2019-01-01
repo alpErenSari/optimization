@@ -1,19 +1,32 @@
-function [sol, i, res] = newton(f, g, H, x0, iterations, error)
+function [sol, i, res] = newton(f, g, H, x0, iterations, search, error)
     res = 0;
     x = x0;
     x_old = x;
-    fibo = fibonacci(50);
+    if(strcmp(search, 'fibonacci'))
+        fibo = fibonacci(50);
+    end
     loss = [];
     
     for i = 1:iterations
         loss = [loss f(x)];
-        delta_x = linsolve(H(x), -g(x));
+        delta_x = linsolve(H(x) + 0.01*randn(length(x),length(x)), -g(x));
         f_a = @(a) f(x + a.*delta_x);
         alpha_max = a_max_calculate(f, delta_x, x);
         [alpha, it] = golden_section(f_a, 0, alpha_max, 1e-4);
 %        alpha = lagrange_search(f_a, 0, alpha_max);
 %         [alpha, it] = threePointInterval(f_a, 0, alpha_max, 1e-4);
 %         [alpha, it] = fibonacci_search(f_a, 0, alpha_max, fibo, 1e-4);
+        if(strcmp(search, 'lagrange'))
+            alpha = lagrange_search(f_a, 0, alpha_max);
+        elseif(strcmp(search, 'golden') )
+            [alpha, it] = golden_section(f_a, 0, alpha_max, 1e-4);
+        elseif(strcmp(search, 'fibonacci'))
+            [alpha, it] = fibonacci_search(f_a, 0, alpha_max, fibo, 1e-4);
+        elseif(strcmp(search, 'dichotomous'))
+            [alpha, it] = dichotomous_search(f_a, 0, alpha_max, 1e-4);
+        elseif(strcmp(search, 'three_point'))
+            [alpha, it] = threePointInterval(f_a, 0, alpha_max, 1e-4);
+        end
 %         alpha = rand();
 %        display("alpha is " + num2str(alpha));
         x = x + alpha*delta_x;

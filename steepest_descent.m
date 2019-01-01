@@ -1,8 +1,10 @@
-function [sol, i, res] = steepest_descent(f, g, x0, iterations, error)
+function [sol, i, res] = steepest_descent(f, g, x0, iterations, search, error)
     res = 0;
     x = x0;
     x_old = x;
-    fibo = fibonacci(50);
+    if(strcmp(search, 'fibonacci'))
+        fibo = fibonacci(50);
+    end
     loss = [];
     
     for i = 1:iterations
@@ -10,10 +12,17 @@ function [sol, i, res] = steepest_descent(f, g, x0, iterations, error)
         f_a = @(a) f(x - a.*g(x));
         g_a = g(x);
         alpha_max = a_max_calculate(f, -g(x), x);
-%         [alpha, it] = golden_section(f_a, 0, alpha_max, 1e-4);
-        alpha = lagrange_search(f_a, 0, alpha_max);
-%         [alpha, it] = threePointInterval(f_a, 0, alpha_max, 1e-4);
-%         [alpha, it] = fibonacci_search(f_a, 0, alpha_max, fibo, 1e-4);
+        if(strcmp(search, 'lagrange'))
+            alpha = lagrange_search(f_a, 0, alpha_max);
+          elseif(strcmp(search, 'golden') )
+            [alpha, it] = golden_section(f_a, 0, alpha_max, 1e-4);
+          elseif(strcmp(search, 'fibonacci'))
+            [alpha, it] = fibonacci_search(f_a, 0, alpha_max, fibo, 1e-4);
+          elseif(strcmp(search, 'dichotomous'))
+            [alpha, it] = dichotomous_search(f_a, 0, alpha_max, 1e-4);
+          elseif(strcmp(search, 'three_point'))
+            [alpha, it] = threePointInterval(f_a, 0, alpha_max, 1e-4);
+          end
 %         alpha = rand();
 %        display(alpha);
         x = x - alpha*g(x);

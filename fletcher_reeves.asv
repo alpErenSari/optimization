@@ -15,8 +15,6 @@ elseif(strcmp(search, 'fibonacci'))
     [alpha, it] = fibonacci_search(f_a, 0, alpha_max, fibo, 1e-4);
 elseif(strcmp(search, 'dichotomous'))
     [alpha, it] = dichotomous_search(f_a, 0, alpha_max, 1e-4);
-elseif(strcmp(search, 'three_point'))
-    [alpha, it] = threePointInterval(f_a, 0, alpha_max, 1e-4);
 end
 x= x+ alpha*d0;
 c1 = f_grad(x); 
@@ -33,10 +31,6 @@ i=0;
             [alpha, it] = golden_section(f_a, 0, alpha_max, 1e-4);
           elseif(strcmp(search, 'fibonacci'))
             [alpha, it] = fibonacci_search(f_a, 0, alpha_max, fibo, 1e-4);
-          elseif(strcmp(search, 'dichotomous'))
-            [alpha, it] = dichotomous_search(f_a, 0, alpha_max, 1e-4);
-          elseif(strcmp(search, 'three_point'))
-            [alpha, it] = threePointInterval(f_a, 0, alpha_max, 1e-4);
           end
           
           x= x+ alpha*d1;
