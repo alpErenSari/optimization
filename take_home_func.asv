@@ -3,14 +3,10 @@ function [x_sol, i, y0] = take_home_func(opt, i_max)
     M = opt.M;
     N = opt.N;
     x = linspace(0,5,N);
-    if(opt.loop)
-        y0 = opt.initial';
-%         disp(size(y0));
-    else
-        initial_vec = vectorize(opt.initial);
-        inital_func = inline(initial_vec);
-        y0 = inital_func(x);
-    end
+    if(opt.loop
+    initial_vec = vectorize(opt.initial);
+    inital_func = inline(initial_vec);
+    y0 = inital_func(x);
     y0(1) = 2; y0(end) = 4;
 %     y0 = linspace(2,4,N);
     
