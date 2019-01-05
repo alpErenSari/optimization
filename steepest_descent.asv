@@ -1,4 +1,4 @@
-function [sol, i, res] = steepest_descent(f, g, H, x0, iterations, search, error)
+function [sol, i, res] = steepest_descent(f, g, x0, iterations, search, error)
     res = 0;
     x = x0;
     x_old = x;
@@ -9,9 +9,8 @@ function [sol, i, res] = steepest_descent(f, g, H, x0, iterations, search, error
     
     for i = 1:iterations
         loss = [loss f(x)];
-        d_a = -g(x);
-        f_a = @(a) f(x + a.*d_a);
-%         g_a = g(x);
+        f_a = @(a) f(x - a.*g(x));
+        g_a = g(x);
         alpha_max = a_max_calculate(f, -g(x), x);
         if(strcmp(search, 'lagrange'))
             alpha = lagrange_search(f_a, 0, alpha_max);
@@ -24,10 +23,10 @@ function [sol, i, res] = steepest_descent(f, g, H, x0, iterations, search, error
           elseif(strcmp(search, 'three_point'))
             [alpha, it] = threePointInterval(f_a, 0, alpha_max, 1e-4);
           elseif(strcmp(search, 'newton_line'))
-            g_a = @(a) d_a'*g(x + a.*d_a);
-            H_a = @(a) d_a'*H(x + a.*d_a)*d_a; 
+            g_a = @(a) d1'*f_grad(x + a.*d1);
+            H_a = @(a) d1'*H(x + a.*d1)*d1; 
             [alpha, it] = newton_line(f_a, g_a, H_a, 0, alpha_max, 1e-4);
-          end
+        end
 %         alpha = rand();
 %        display(alpha);
         x = x - alpha*g(x);

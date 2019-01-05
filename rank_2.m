@@ -1,4 +1,4 @@
-function [sol, i] = rank_2(f, g, x0, H0, iterations, search, error)
+function [sol, i] = rank_2(f, g, f_hess, x0, H0, iterations, search, error)
     res = 0;
     x = x0;
 %     H0 = eye(length(x));
@@ -25,6 +25,10 @@ function [sol, i] = rank_2(f, g, x0, H0, iterations, search, error)
             [alpha, it] = dichotomous_search(f_a, 0, alpha_max, 1e-4);
         elseif(strcmp(search, 'three_point'))
             [alpha, it] = threePointInterval(f_a, 0, alpha_max, 1e-4);
+        elseif(strcmp(search, 'newton_line'))
+            g_a = @(a) d_k'*g(x + a.*d_k);
+            H_a = @(a) d_k'*f_hess(x + a.*d_k)*d_k; 
+            [alpha, it] = newton_line(f_a, g_a, H_a, 0, alpha_max, 1e-4);
         end
 %         alpha = rand();
 %        display("alpha is " + num2str(alpha));

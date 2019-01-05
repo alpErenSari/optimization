@@ -1,4 +1,4 @@
-function [x_sol, i] = fletcher_reeves (f, f_grad, x0, search, i_max)
+function [x_sol, i] = fletcher_reeves (f, f_grad, H, x0, search, i_max)
 
 x=x0;
 epsilon = 1e-4;
@@ -17,6 +17,10 @@ elseif(strcmp(search, 'dichotomous'))
     [alpha, it] = dichotomous_search(f_a, 0, alpha_max, 1e-4);
 elseif(strcmp(search, 'three_point'))
     [alpha, it] = threePointInterval(f_a, 0, alpha_max, 1e-4);
+elseif(strcmp(search, 'newton_line'))
+    g_a = @(a) d0'*f_grad(x + a.*d0);
+    H_a = @(a) d0'*H(x + a.*d0)*d0; 
+    [alpha, it] = newton_line(f_a, g_a, H_a, 0, alpha_max, 1e-4);
 end
 x= x+ alpha*d0;
 c1 = f_grad(x); 
@@ -37,6 +41,10 @@ i=0;
             [alpha, it] = dichotomous_search(f_a, 0, alpha_max, 1e-4);
           elseif(strcmp(search, 'three_point'))
             [alpha, it] = threePointInterval(f_a, 0, alpha_max, 1e-4);
+          elseif(strcmp(search, 'newton_line'))
+            g_a = @(a) d1'*f_grad(x + a.*d1);
+            H_a = @(a) d1'*H(x + a.*d1)*d1; 
+            [alpha, it] = newton_line(f_a, g_a, H_a, 0, alpha_max, 1e-4);
           end
           
           x= x+ alpha*d1;

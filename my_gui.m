@@ -164,7 +164,7 @@ while(1)
         answer_in = questdlg('Would you like to use select a new inital function?', ...
         'Make Your Choice', ...
         'Yes','No, use the last point', 'No, use the last point');
-        if(strcmp(answer, 'Yes'))
+        if(strcmp(answer_in, 'Yes'))
             answer_initial = inputdlg({'Please enter the new inital function'});
             opt.loop = 0;
             opt.initial = sprintf(answer_initial{1});
