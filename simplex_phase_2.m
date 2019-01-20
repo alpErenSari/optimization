@@ -1,9 +1,10 @@
-function x_sol = my_simplex(c, A, b)
+function x_sol = simplex_phase_2(A, b, c)
     [m,n] = size(A);
+    n = n-m;
     epsilon = 1e-8;
-    A_aug = [A eye(m)];
-    c_aug = [c zeros(1,m)];
-    simp_aug = [A_aug; c_aug];
+%     A_aug = [A eye(m)];
+%     c_aug = [c zeros(1,m)];
+    simp_aug = [A; c];
     simp_aug = [simp_aug [b 0]'];
     
     optimal = false;
@@ -42,6 +43,3 @@ function x_sol = my_simplex(c, A, b)
  
       
     x_sol = simp_aug;
-        
-    
-end
