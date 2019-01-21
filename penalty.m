@@ -9,7 +9,8 @@ function [x_sol, i] = penalty(f, f_grad, constraints, M, x0, i_max)
     search = constraints{6};
 %     keyboard
     J_aug = @(x) f(x) + M*h(x)'*h(x) + M*max(0,g(x))'*max(0,g(x));
-    J_aug_grad = @(x) f_grad(x) + 2*M*h_grad(x)*h(x) + 2*M*(max(0,g(x)) > 0).*(g_grad(x)*g(x));
+%     J_aug_grad = @(x) f_grad(x) + 2*M*h_grad(x)*h(x) + 2*M*(max(0,g(x)) > 0).*(g_grad(x)*g(x));
+    J_aug_grad = @(x) gradient_calculater(J_aug, x);
     J_aug_hess = @(x) hessian_calculate(J_aug, x);
 
     loop_step = 5;
@@ -30,7 +31,8 @@ function [x_sol, i] = penalty(f, f_grad, constraints, M, x0, i_max)
         M = M*1.2;
         x0 = x_sol;
         J_aug = @(x) f(x) + M*h(x)'*h(x) + M*max(0,g(x))'*max(0,g(x));
-        J_aug_grad = @(x) f_grad(x) + 2*M*h_grad(x)*h(x) + 2*M*(max(0,g(x)) > 0).*(g_grad(x)*g(x));
+%         J_aug_grad = @(x) f_grad(x) + 2*M*h_grad(x)*h(x) + 2*M*(max(0,g(x)) > 0).*(g_grad(x)*g(x));
+        J_aug_grad = @(x) gradient_calculater(J_aug, x);
         J_aug_hess = @(x) hessian_calculate(J_aug, x);
         
         if(norm(J_aug_grad(x_sol)) < eps)

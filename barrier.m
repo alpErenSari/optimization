@@ -1,5 +1,5 @@
 function [x_sol, i] = barrier(f, f_grad, constraints, M, x0, i_max)
-    eps = 1e-4;
+    eps = 0;
     H0 = eye(length(x0));
     h = constraints{1};
     h_grad = constraints{2};
@@ -8,7 +8,7 @@ function [x_sol, i] = barrier(f, f_grad, constraints, M, x0, i_max)
     unconstrained_solver = constraints{5};
     search = constraints{6};
     
-    J_aug = @(x) f(x) - M*sum(1./(h(x)-eps)) - M*sum(1./(-h(x)-eps)) - M*sum(1./(g(x)-eps));
+    J_aug = @(x) f(x) - (1/M)*sum(1./(h(x)-eps)) - (1/M)*sum(1./(-h(x)-eps)) - (1/M)*sum(1./(g(x)-eps));
 %     J_aug_grad = @(x) f_grad(x) + M*h_grad(x)*(1 ./(h(x)-eps)).^2 ...
 %         - M*h_grad(x)*(1 ./(-h(x)-eps)).^2 + M*g_grad(x)*(1 ./(g(x)-eps)).^2;
     J_aug_grad = @(x) gradient_calculater(J_aug, x);
@@ -28,9 +28,9 @@ function [x_sol, i] = barrier(f, f_grad, constraints, M, x0, i_max)
         elseif(strcmp(unconstrained_solver, 'newton_method'))   
             [x_sol, k, res] = newton(J_aug, J_aug_grad, J_aug_hess, x0, loop_step, search, eps);
         end
-        M = M/1.2;
+        M = M*1.02;
         x0 = x_sol;
-        J_aug = @(x) f(x) - M*sum(1./(h(x)-eps)) - M*sum(1./(-h(x)-eps)) - M*sum(1./(g(x)-eps));
+        J_aug = @(x) f(x) - (1/M)*sum(1./(h(x)-eps)) - (1/M)*sum(1./(-h(x)-eps)) - (1/M)*sum(1./(g(x)-eps));
 %         J_aug_grad = @(x) f_grad(x) + M*h_grad(x)*(1 ./(h(x)-eps)).^2 ...
 %             - M*h_grad(x)*(1 ./(-h(x)-eps)).^2 + M*g_grad(x)*(1 ./(g(x)-eps)).^2;
         J_aug_grad = @(x) gradient_calculater(J_aug, x);

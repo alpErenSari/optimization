@@ -32,6 +32,7 @@ function x_sol = simplex_phase_2(A, b, c)
                   end
               end
           end
+          display(rats(simp_aug));
       end
               
        display(it);
